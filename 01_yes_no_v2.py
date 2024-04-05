@@ -23,5 +23,3 @@ while True:
 
     print("Program continues...")
     print()
-
-print("We are done")
