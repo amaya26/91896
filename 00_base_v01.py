@@ -1,20 +1,5 @@
 # functions go here
 
-# Checks user has entered yes / no to a question
-def yes_no(question):
-    while True:
-        response = input(question).lower()
-
-        if response == "yes" or response == "y":
-            return "yes"
-
-        elif response == "no" or response == "n":
-            return "no"
-
-        else:
-            print("Please enter yes or no")
-
-
 # checks that user response is not blank
 def not_blank(question):
 
@@ -59,14 +44,44 @@ def calc_ticket_price(var_age):
     return price
 
 
+# Checks that users enter a valid response (e.g. yes / no
+# cash / credit) based on a list of questions
+def string_checker(question, num_letters, valid_responses):
+
+    error = "Please choose {} or {}".format(valid_responses[0],
+                                            valid_responses[1])
+
+    if num_letters == 1:
+        short_version = 1
+    else:
+        short_version = 2
+
+    while True:
+
+        response = input(question).lower()
+
+        for item in valid_responses:
+            if response == item[:short_version] or response == item:
+                return item
+
+        print(error)
+
+        print("Please enter a valid response")
+
+
 # main routine goes here
 
 # set maximum number of tickets below
 MAX_TICKETS = 3
 tickets_sold = 0
 
+yes_no_list = ["yes", "no"]
+payment_list = ["cash", "credit"]
+
 # Ask the user if they want to see the instructions
-want_instructions = yes_no("Do you want to see the instructions? ")
+want_instructions = string_checker("Do you want to see "
+                                   "the instructions? (y/n):",
+                                   1, yes_no_list)
 
 if want_instructions == "yes":
     print("Instructions go here")
@@ -93,7 +108,10 @@ while tickets_sold < MAX_TICKETS:
 
     # calculate ticket cost
     ticket_cost = calc_ticket_price(age)
-    print("Age: {}, Ticket Price: ${:.2f}".format(age, ticket_cost))
+
+    pay_method = string_checker("Choose a payment method "
+                                "(cash / credit):",
+                                2, payment_list)
 
     tickets_sold += 1
 
