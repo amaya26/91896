@@ -20,6 +20,9 @@ mini_movie_frame = pandas.DataFrame(mini_movie_dict)
 mini_movie_frame['Total'] = mini_movie_frame['Surcharge'] \
                             + mini_movie_frame['Ticket Price']
 
+# Calculate the profit
+mini_movie_frame['Profit'] = mini_movie_frame['Ticket Price'] - 5
+
 # calculate ticket and profit totals
 total = mini_movie_frame['Total'].sum()
 profit = mini_movie_frame['Profit'].sum()
